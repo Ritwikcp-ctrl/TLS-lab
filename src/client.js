@@ -1,5 +1,5 @@
 const https = require("node:https");
-const { hostname } = require("node:os");
+
 
 const options = {
   hostname: "127.0.0.1",
@@ -38,3 +38,11 @@ request.on("socket", (socket) => {
 });
 
 request.end();
+
+
+
+/*  
+
+When the client connects, TLS happens first. The server presents its certificate during the TLS handshake. After the handshake succeeds and session keys are established, the client sends HTTP requests and receives HTTP responses through that encrypted TLS connection.
+
+*/
