@@ -12,6 +12,7 @@ const options = {
 
 const request = https.request(options, (response) => {
   console.log("Status :", response.statusCode);
+  // https.request(options, ...)  -----> Make an HTTPS request to this server.
 
   response.on("data", (chunk) => {
     console.log("Body :", chunk.toString());
@@ -22,6 +23,7 @@ const request = https.request(options, (response) => {
 });
 
 request.on("socket", (socket) => {
+    //For this particular HTTP request ,tell me which underlying socket/connection is being used.
   socket.on("secureConnect", () => {
     console.log("\nTLS connection established ");
     console.log("TLS version :", socket.getProtocol());
@@ -38,11 +40,15 @@ request.on("socket", (socket) => {
 });
 
 request.end();
+//finishes the request and allows Node to send it.
 
 
 
 /*  
 
 When the client connects, TLS happens first. The server presents its certificate during the TLS handshake. After the handshake succeeds and session keys are established, the client sends HTTP requests and receives HTTP responses through that encrypted TLS connection.
+
+
+Socket = communication channel; TCP = transport; TLS = secures the channel; HTTP request/response = application data carried through that secure channel.
 
 */
